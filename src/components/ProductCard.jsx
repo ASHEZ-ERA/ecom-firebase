@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 
 function ProductPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
+  const {addToCart} = useCart()
 
   useEffect(() => {
     fetch(`https://fakestoreapi.com/products/${id}`)
@@ -50,7 +52,9 @@ function ProductPage() {
               Rating: {product.rating?.rate} ⭐
             </p>
           </div>
-          <button className="mt-6 bg-purple-600 text-white py-2 px-4 rounded hover:bg-purple-700 transition">
+          <button 
+          onClick={() => addToCart(product)}
+          className="mt-6 bg-purple-600 text-white py-2 px-4 rounded hover:bg-purple-700 transition">
             Add to Cart
           </button>
         </div>

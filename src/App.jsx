@@ -7,19 +7,27 @@ import Cart from './Pages/Cart';
 import { BrowserRouter , Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import ProductCard from './components/ProductCard';
+import { AuthProvider } from './context/AuthContext';
+import { CartProvider } from './context/CartContext';
+
+
 function App() {
 
   return (
     <BrowserRouter>
-    <Navbar/>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/product/:id" element={<ProductCard/>}/>
-        <Route path="*" element={<h1>404 Not Found</h1>} />
-      </Routes>
+    <AuthProvider>
+      <CartProvider>
+        <Navbar/>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/product/:id" element={<ProductCard/>}/>
+          <Route path="*" element={<h1>404 Not Found</h1>} />
+        </Routes>
+      </CartProvider>
+    </AuthProvider>
     </BrowserRouter>
   )
 }
